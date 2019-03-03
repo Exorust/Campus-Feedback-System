@@ -19,6 +19,14 @@ app.use(bodyParser.json());
 // initialize routes
 app.use("/api/feedback", require("./routes/api"));
 
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 // listen for requests
 app.listen(process.env.port || 4000, function() {
   console.log("now listening for requests");
