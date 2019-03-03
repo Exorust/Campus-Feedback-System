@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Login from "../auth/login";
+import Signup from "../auth/signup";
 
 class Navbar extends Component {
   render() {
@@ -18,21 +20,23 @@ class Navbar extends Component {
             >
               <span className="navbar-toggler-icon" />
             </button>
-
-            <div className="collapse navbar-collapse" id="mobile-nav">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/signup">
-                    Signup
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            {this.props.loginstatus === "no" && (
+              <div className="collapse navbar-collapse" id="mobile-nav">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      <Login />
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/signup">
+                      <Signup />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+            {}
           </div>
         </nav>
       </div>

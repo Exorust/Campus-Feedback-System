@@ -8,15 +8,38 @@ import Login from "./components/auth/login";
 import Navbar from "./components/layout/Navbar";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      userid: "",
+      loginstatus: "no",
+      isstudent: "no"
+    };
+  }
+  handleToUpdate = (userid, isstudent, loginstatus) => {
+    console.log(isstudent);
+    this.setState({
+      userid,
+      isstudent,
+      loginstatus
+    });
+  };
   render() {
     return (
       <Router>
         <div className="App">
           <Navbar />
-          <div className="container">
-            <FeedModal />
-            <Landing />
-          </div>
+          {this.state.loginstatus === "no" && (
+            <Login handleToUpdate={this.handleToUpdate} />
+          )}
+          {this.state.loginstatus === "yes" && (
+            <div className="container">
+              {this.state.isstudent === "yes" && (
+                <Route path="/student" component={FeedModal} />
+              )}
+              <Landing studentid={this.state.userid} />
+            </div>
+          )}
         </div>
       </Router>
     );

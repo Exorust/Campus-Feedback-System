@@ -11,12 +11,20 @@ export default class login extends Component {
   };
 
   onSubmit = e => {
-    const data = {
-      loginid: this.state.name,
-      password: this.state.password
-    };
-
-    axios.get("/api/auth/", data).then(res=> console.log(res));
+    e.preventDefault();
+    axios
+      .get(`/api/feedback/auth/${this.state.loginid}/${this.state.password}`)
+      .then(res => {
+        console.log(res.data.isstudent);
+        if (res.data.response === "yes") {
+          // console.log("handleupdate will be called");
+          this.props.handleToUpdate(
+            this.state.loginid,
+            res.data.isstudent,
+            "yes"
+          );
+        }
+      });
   };
   render() {
     return (

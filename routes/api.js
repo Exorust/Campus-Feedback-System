@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const FeedbackModel = require("../models/feedback");
-const student = require("../models/student");
+const Student = require("../models/student");
 
 // get a list of ninjas from the db
 router.get("/", (req, res) => {
@@ -19,13 +19,31 @@ router.post("/", (req, res) => {
   feedback.save().then(feed => res.send(feed));
 });
 
-router.get("/auth", (req, res) => {
-  const loginid = req.body.loginid;
-  const password = req.body.password;
-  student.find({ loginid }, (err, student) => {
-    if (student.password === password) res.send("ok");
-    else res.send("fuck off");
+router.get("/auth/:loginid/:password", (req, res) => {
+  const loginid = req.params.loginid;
+  // console.log(loginid);
+  const password = req.params.password;
+  //console.log(password);
+  Student.findOne({ loginid }, (err, student) => {
+    //res.json(student["password"]);
+    if (student.password === password) {
+      const data = {
+        isstudent: student.isstudent,
+        response: "yes"
+      };
+      res.json(data);
+    } else res.send("fuck off");
   });
+});
+
+router.post("/create", (req, res) => {
+  var student = new Student({
+    name: req.body.name,
+    loginid: req.body.loginid,
+    password: req.body.password,
+    isstudent: req.body.isstudent
+  });
+  student.save().then(student => res.send(student));
 });
 
 router.delete("/:id", (req, res) => {

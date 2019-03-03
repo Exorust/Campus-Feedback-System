@@ -51,14 +51,16 @@ class Landing extends Component {
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <div className="col-sm-3 h-100 w-200">
                   <div className="card">
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >
-                      &times;
-                    </Button>
+                    {studentid === this.props.studentid && (
+                      <Button
+                        className="remove-btn"
+                        color="danger"
+                        size="sm"
+                        onClick={this.onDeleteClick.bind(this, _id)}
+                      >
+                        &times;
+                      </Button>
+                    )}
                     <div className="card-body">
                       <h3 className="card-title">{studentid}</h3>
                       <p className="card-text">{feedback}</p>

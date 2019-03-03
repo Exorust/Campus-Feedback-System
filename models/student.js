@@ -11,6 +11,11 @@ const StudentSchema = new Schema({
     type: String,
     required: [true, "ID field is required"]
   },
+
+  isstudent: {
+    type: String,
+    required: [true, "isStudent or not"]
+  },
   password: {
     type: String,
     required: [true, "Password field is required"]
@@ -18,6 +23,6 @@ const StudentSchema = new Schema({
   // add in geo location
 });
 
-const StudentModel = mongoose.model("student", StudentSchema);
+const Student = mongoose.model("student", StudentSchema);
 
-module.exports = StudentModel;
+module.exports = Student;
