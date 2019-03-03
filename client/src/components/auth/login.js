@@ -15,7 +15,8 @@ export default class login extends Component {
       loginid: this.state.name,
       password: this.state.password
     };
-    axios.post("/auth", data);
+
+    axios.get("/api/auth/", data).then(res=> console.log(res));
   };
   render() {
     return (
