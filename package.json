@@ -4,6 +4,7 @@
   "description": "Campus Feedback System for BITS",
   "main": "index.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "server": "nodemon index.js",
     "client": "cd ./client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
