@@ -35,7 +35,7 @@ class App extends Component {
           {this.state.loginstatus === "yes" && (
             <div className="container">
               {this.state.isstudent === "yes" && (
-                <Route path="/student" component={FeedModal} />
+                < FeedModal />
               )}
               <Landing studentid={this.state.userid} />
             </div>

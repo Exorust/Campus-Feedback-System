@@ -36,9 +36,8 @@ class Landing extends Component {
   }
 
   getDataFromDb = () => {
-    fetch("http://localhost:4000/api/feedback")
-      .then(res => res.json())
-      .then(feedbacks => this.setState({ feedbacks }));
+    axios.get("/api/feedback")
+      .then(res => this.setState({ feedbacks: res.data}));
   };
 
   render() {
