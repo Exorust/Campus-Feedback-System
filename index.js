@@ -28,6 +28,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // listen for requests
-app.listen(process.env.port || 4000, function() {
+app.listen(process.env.port, function() {
   console.log("now listening for requests");
 });
