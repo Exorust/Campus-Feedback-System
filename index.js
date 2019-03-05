@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 // connect to mongodb
 mongoose
-  .connect("mongodb://localhost/campusfeedback")
+  .connect("mongodb://gopeshkh1:gopesh123@ds149885.mlab.com:49885/alternate")
   .then(console.log("mogodb connected"));
 mongoose.Promise = global.Promise;
 

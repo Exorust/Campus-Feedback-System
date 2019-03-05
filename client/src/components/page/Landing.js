@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Container, ListGroup, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import uuid from "uuid";
 
 class Landing extends Component {
   constructor() {

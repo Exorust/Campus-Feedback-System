@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import FeedModal from "./components/page/FeedModal";
 import Landing from "./components/page/Landing";
@@ -35,7 +35,7 @@ class App extends Component {
           {this.state.loginstatus === "yes" && (
             <div className="container">
               {this.state.isstudent === "yes" && (
-                < FeedModal />
+                < FeedModal id={this.state.userid} />
               )}
               <Landing studentid={this.state.userid} />
             </div>

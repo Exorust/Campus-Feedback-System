@@ -66,8 +66,8 @@ class FeedModal extends Component {
                 <Input
                   type="text"
                   name="id"
-                  placeholder="Give the id number"
-                  onChange={this.onChange}
+                  value={this.props.id}
+                  disabled="true"
                 />
                 <br />
                 <Input
