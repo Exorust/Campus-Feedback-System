@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Campus Feedback System for BITS",
   "main": "index.js",
-  "engine" : {
-    "node":"8.10.0",
-    "npm" : "3.5.2"
+  "engine": {
+    "node": "8.10.0",
+    "npm": "3.5.2"
   },
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "client-install": "npm install --prefix client",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
