@@ -15,11 +15,11 @@ import {
 } from "reactstrap";
 import axios from "axios";
 
-class FeedModal extends Component {
+class PollModal extends Component {
   state = {
     modal_t: false,
     dropdown: false,
-    feedback: "",
+    poll: "",
     domain: "select"
   };
 
@@ -51,7 +51,7 @@ class FeedModal extends Component {
 
     const data = {
       id: this.props.id,
-      feedback: this.state.feedback,
+      poll: this.state.poll,
       domain: this.state.domain
     };
     /*
@@ -59,7 +59,7 @@ class FeedModal extends Component {
       method: "POST",
       body: data
     }).then(res => console.log(res));*/
-    axios.post("/api/feedback", data).then(res => console.log(res));
+    axios.post("/api/poll", data).then(res => console.log(res));
     this.toggle_modal();
   };
 
@@ -71,15 +71,15 @@ class FeedModal extends Component {
           style={{ marginBottom: "2rem" }}
           onClick={this.toggle_modal}
         >
-          give a feedback
+          start a poll
         </Button>
 
         <Modal isOpen={this.state.modal_t} toggle={this.toggle_modal}>
-          <ModalHeader toggle={this.toggle_modal}>Add a feedback</ModalHeader>
+          <ModalHeader toggle={this.toggle_modal}>start a poll</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.onSubmit}>
+            <Form>
               <FormGroup>
-                <Label>Give feedback</Label>
+                <Label>What's the poll about</Label>
 
                 <br />
                 <Input
@@ -91,11 +91,12 @@ class FeedModal extends Component {
                 <br />
                 <Input
                   type="textarea"
-                  name="feedback"
-                  placeholder="enter here about the feedback"
+                  name="poll"
+                  placeholder="enter here about the poll"
                   onChange={this.onChange}
                 />
                 <br />
+
                 <Dropdown
                   isOpen={this.state.dropdown}
                   toggle={this.toggle_dropdown}
@@ -126,8 +127,13 @@ class FeedModal extends Component {
                   </DropdownMenu>
                 </Dropdown>
 
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
-                  give feedback
+                <Button
+                  color="dark"
+                  onClick={this.onSubmit}
+                  style={{ marginTop: "2rem" }}
+                  block
+                >
+                  start poll
                 </Button>
               </FormGroup>
             </Form>
@@ -138,4 +144,4 @@ class FeedModal extends Component {
   }
 }
 
-export default FeedModal;
+export default PollModal;

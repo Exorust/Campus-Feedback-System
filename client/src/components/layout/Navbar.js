@@ -7,10 +7,10 @@ class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <nav className="navbar sticky navbar-expand-sm navbar-dark bg-dark mb-4">
           <div className="container">
             <Link className="navbar-brand" to="/FeedbackForm">
-              Feedback
+              <h1>Feedbuzz</h1>
             </Link>
             <button
               className="navbar-toggler"

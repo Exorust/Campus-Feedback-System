@@ -1,3 +1,5 @@
+import Landing from "./Landing";
+
 {
   this.state.feedbacks.map(({ studentid, feedback }) => (
     <CSSTransition key={uuid()} timeout={500} classNames="fade">
@@ -10,3 +12,22 @@
     </CSSTransition>
   ));
 }
+
+//Landing.js
+
+<div className="card">
+  {studentid === this.props.studentid && (
+    <Button
+      className="remove-btn"
+      color="danger"
+      size="sm"
+      onClick={this.onDeleteClick.bind(this, _id)}
+    >
+      &times;
+    </Button>
+  )}
+  <div className="card-body">
+    <h3 className="card-title">{studentid}</h3>
+    <p className="card-text">{feedback}</p>
+  </div>
+</div>;

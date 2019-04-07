@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Container, ListGroup, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Badge } from "@material-ui/core";
+import { DeleteSweep } from "@material-ui/icons";
 
 class Landing extends Component {
   constructor() {
     super();
 
     this.state = {
-      feedbacks: [],
+      feedback: [],
       intervalIsSet: false
     };
   }
@@ -35,8 +37,9 @@ class Landing extends Component {
   }
 
   getDataFromDb = () => {
-    axios.get("/api/feedback")
-      .then(res => this.setState({ feedbacks: res.data}));
+    axios
+      .get("/api/feedback")
+      .then(res => this.setState({ feedback: res.data }));
   };
 
   render() {
@@ -44,30 +47,32 @@ class Landing extends Component {
       <Container>
         <ListGroup>
           <TransitionGroup className="feedback-display" />
-          <div className="row">
-            {this.state.feedbacks.map(({ _id, studentid, feedback }) => (
-              <CSSTransition key={_id} timeout={500} classNames="fade">
-                <div className="col-sm-3 h-100 w-200">
-                  <div className="card">
-                    {studentid === this.props.studentid && (
-                      <Button
-                        className="remove-btn"
-                        color="danger"
-                        size="sm"
-                        onClick={this.onDeleteClick.bind(this, _id)}
-                      >
-                        &times;
-                      </Button>
-                    )}
-                    <div className="card-body">
-                      <h3 className="card-title">{studentid}</h3>
-                      <p className="card-text">{feedback}</p>
-                    </div>
+          {this.state.feedback.map(({ _id, studentid, feedback, domain }) => (
+            <CSSTransition key={_id} timeout={500} classNames="fade">
+              {studentid === this.props.studentid && (
+                <div className="card mb-4">
+                  <Badge
+                    className="remove-btn "
+                    size="sm"
+                    onClick={this.onDeleteClick.bind(this, _id)}
+                  >
+                    <DeleteSweep />
+                  </Badge>
+                  <div className="card-header d-flex bg-dark text-white text-justify">
+                    {studentid}
+                  </div>
+                  <div className="card-body">
+                    <h5>Feed:</h5>
+                    <p className="card-text">{feedback}</p>
+                    <Button>view response</Button>
+                  </div>
+                  <div className="card-footer text-muted text-right">
+                    {domain}
                   </div>
                 </div>
-              </CSSTransition>
-            ))}
-          </div>
+              )}
+            </CSSTransition>
+          ))}
         </ListGroup>
       </Container>
     );

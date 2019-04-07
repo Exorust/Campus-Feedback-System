@@ -13,7 +13,8 @@ import Login from "./components/auth/login";
 import Navbar from "./components/layout/Navbar";
 import PollLanding from "./components/page/PollLanding";
 import { Typography } from "@material-ui/core";
-import { Subject, TrendingUp } from "@material-ui/icons";
+import { AddCircle, Subject, TrendingUp } from "@material-ui/icons";
+import { Button } from "reactstrap";
 
 class App extends Component {
   constructor() {
@@ -21,7 +22,8 @@ class App extends Component {
     this.state = {
       userid: "",
       loginstatus: "no",
-      isstudent: "no"
+      isstudent: "no",
+      addclick: false
     };
     this.style1 = {
       padding: 5,
@@ -38,6 +40,7 @@ class App extends Component {
       overflow: "auto"
     };
   }
+
   handleToUpdate = (userid, isstudent, loginstatus) => {
     console.log(isstudent);
     this.setState({
@@ -46,6 +49,19 @@ class App extends Component {
       loginstatus
     });
   };
+
+  toggle_dropdown = () => {
+    this.setState({
+      dropdown: !this.state.dropdown
+    });
+  };
+
+  onClick = () => {
+    this.setState({
+      addclick: !this.state.addclick
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -54,41 +70,34 @@ class App extends Component {
           {this.state.loginstatus === "no" && (
             <Login handleToUpdate={this.handleToUpdate} />
           )}
-          {this.state.loginstatus === "yes" && (
+          {this.state.loginstatus === "yes" && this.state.isstudent === "yes" && (
             <div className="container">
-              {this.state.isstudent === "yes" && (
-                <Grid container>
-                  <Grid item sm>
-                    <Typography>
-                      <FeedModal id={this.state.userid} />
-                      <PollModal id={this.state.userid} />
-                    </Typography>
-                  </Grid>
-                  <Grid item sm>
-                    <Typography>
-                      <PieChart />
-                    </Typography>
-                  </Grid>
-                </Grid>
+              <Button onClick={this.onClick} className="m-4">
+                <AddCircle />
+              </Button>
+              <br />
+              {this.state.addclick && (
+                <React.Fragment>
+                  <FeedModal id={this.state.userid} />
+                  <PollModal id={this.state.userid} />
+                </React.Fragment>
               )}
 
               <React.Fragment>
                 <Grid container>
                   <Grid item sm>
-                    <Typography align="center">
-                      <h1>my feeds</h1>
-                      <Subject fontSize="large" />
-                    </Typography>
+                    <h1>My feeds</h1>
+                    <Subject fontSize="large" />
+
                     <Paper style={this.style2}>
                       <Landing studentid={this.state.userid} />
                     </Paper>
                   </Grid>
 
                   <Grid item sm>
-                    <Typography align="center">
-                      <h1>recent polls</h1>
-                      <TrendingUp fontSize="large" />
-                    </Typography>
+                    <h1>Recent polls</h1>
+                    <TrendingUp fontSize="large" />
+
                     <Paper style={this.style2}>
                       <PollLanding studentid={this.state.userid} />
                     </Paper>

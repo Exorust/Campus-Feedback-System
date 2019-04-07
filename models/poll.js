@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // create ninja Schema & model
-const FeedbackSchema = new Schema({
+const PollSchema = new Schema({
   studentid: {
     type: String,
     required: [true, "student field is required"]
   },
-  feedback: {
+  pollQuestion: {
     type: String
   },
   domain: {
@@ -15,10 +15,11 @@ const FeedbackSchema = new Schema({
   },
   date: {
     type: Date
-  }
+  },
+  options: [{ option: String, count: Number }]
   // add in geo location
 });
 
-const FeedbackModel = mongoose.model("feedback", FeedbackSchema);
+const PollModel = mongoose.model("poll", PollSchema);
 
-module.exports = FeedbackModel;
+module.exports = PollModel;

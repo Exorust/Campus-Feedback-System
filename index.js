@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const feedback = require("./routes/api");
+const user = require("./routes/user");
+const poll = require("./routes/poll");
 // set up express app
 const app = express();
 
@@ -17,7 +19,9 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
 
 // initialize routes
-app.use("/api/feedback", require("./routes/api"));
+app.use("/api/feedback", user);
+app.use("/api/feedback", feedback);
+app.use("/api/poll", poll);
 
 if (process.env.NODE_ENV === "production") {
   // Set static folder
