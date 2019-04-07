@@ -32,6 +32,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // listen for requests
-app.listen(process.env.port, function() {
+app.listen(process.env.PORT, function() {
   console.log("now listening for requests");
 });
