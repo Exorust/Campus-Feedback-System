@@ -1,7 +1,7 @@
 {
   "name": "campus-feedback-system",
   "version": "1.0.0",
-  "description": "Campus Feedback System for BITS",
+  "description": "Campus Feedback System for BITS"
   "main": "index.js",
   "engine": {
     "node": "8.10.0",
