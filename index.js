@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 // connect to mongodb
 mongoose
+  // .connect("mongodb://localhost/campusfeedback")
   .connect("mongodb://gopeshkh1:gopesh123@ds149885.mlab.com:49885/alternate")
   .then(console.log("mogodb connected"));
 mongoose.Promise = global.Promise;
@@ -32,6 +33,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // listen for requests
-app.listen(process.env.PORT, function() {
+app.listen(process.env.port || 4000, function() {
   console.log("now listening for requests");
 });

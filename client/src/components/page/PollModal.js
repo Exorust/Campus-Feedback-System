@@ -120,7 +120,7 @@ class PollModal extends Component {
                     <DropdownItem
                       onClick={this.onChange}
                       name="domain"
-                      vaalue="sac"
+                      value="sac"
                     >
                       sac
                     </DropdownItem>

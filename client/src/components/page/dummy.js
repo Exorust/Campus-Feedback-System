@@ -31,3 +31,12 @@ import Landing from "./Landing";
     <p className="card-text">{feedback}</p>
   </div>
 </div>;
+
+<Grid item sm>
+  <h1>Recent polls</h1>
+  <TrendingUp fontSize="large" />
+
+  <Paper style={this.style2}>
+    <PollLanding studentid={this.state.userid} />
+  </Paper>
+</Grid>;

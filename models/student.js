@@ -23,6 +23,6 @@ const StudentSchema = new Schema({
   // add in geo location
 });
 
-const Student = mongoose.model("student", StudentSchema);
+const Student = mongoose.model("user", StudentSchema);
 
 module.exports = Student;

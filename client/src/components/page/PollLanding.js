@@ -57,15 +57,13 @@ class PollLanding extends Component {
     return (
       <Container>
         <ListGroup>
-          <TransitionGroup className="poll-display" />
           {this.state.poll.map(mapelement => (
-            <CSSTransition key={mapelement._id} timeout={500} classNames="fade">
-              <PollObjects
-                element={mapelement}
-                studentid={this.props.studentid}
-                _id={mapelement._id}
-              />
-            </CSSTransition>
+            <PollObjects
+              key={mapelement._id}
+              element={mapelement}
+              studentid={this.props.studentid}
+              _id={mapelement._id}
+            />
           ))}
         </ListGroup>
       </Container>

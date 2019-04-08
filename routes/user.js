@@ -4,11 +4,12 @@ const Student = require("../models/student");
 
 router.get("/auth/:loginid/:password", (req, res) => {
   const loginid = req.params.loginid;
-  // console.log(loginid);
+  console.log(loginid);
   const password = req.params.password;
-  //console.log(password);
+  console.log(password);
   Student.findOne({ loginid }, (err, student) => {
     //res.json(student["password"]);
+
     if (student.password === password) {
       const data = {
         isstudent: student.isstudent,
@@ -16,7 +17,7 @@ router.get("/auth/:loginid/:password", (req, res) => {
       };
       res.json(data);
     } else res.send("fuck off");
-  });
+  }).catch(err => res.status(404).json({ success: false }));
 });
 
 router.post("/create", (req, res) => {
