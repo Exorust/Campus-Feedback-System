@@ -9,11 +9,16 @@ router.get("/auth/:loginid/:password", (req, res) => {
   console.log(password);
   Student.findOne({ loginid }, (err, student) => {
     //res.json(student["password"]);
+    if(!student)
+    {
+      res.json("no student found");
+    }
 
-    if (student.password === password) {
+    else if (student.password === password) {
       const data = {
         isstudent: student.isstudent,
-        response: "yes"
+        response: "yes",
+        domain: student.domain
       };
       res.json(data);
     } else res.send("fuck off");

@@ -57,14 +57,19 @@ class PollLanding extends Component {
     return (
       <Container>
         <ListGroup>
-          {this.state.poll.map(mapelement => (
-            <PollObjects
-              key={mapelement._id}
-              element={mapelement}
-              studentid={this.props.studentid}
-              _id={mapelement._id}
-            />
-          ))}
+          {this.state.poll.map(
+            mapelement =>
+              (this.props.domain === mapelement.domain ||
+                this.props.domain === "student") && (
+                <PollObjects
+                  key={mapelement._id}
+                  element={mapelement}
+                  studentid={this.props.studentid}
+                  _id={mapelement._id}
+                  domain={this.props.domain}
+                />
+              )
+          )}
         </ListGroup>
       </Container>
     );

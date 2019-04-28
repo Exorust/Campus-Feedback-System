@@ -12,9 +12,14 @@ import Landing from "./components/page/Landing";
 import Login from "./components/auth/login";
 import Navbar from "./components/layout/Navbar";
 import PollLanding from "./components/page/PollLanding";
-import { Typography } from "@material-ui/core";
-import { AddCircle, Subject, TrendingUp } from "@material-ui/icons";
-import { Button } from "reactstrap";
+import { Typography, Switch } from "@material-ui/core";
+import {
+  AddCircle,
+  Subject,
+  TrendingUp,
+  HomeOutlined
+} from "@material-ui/icons";
+import { Button, Container } from "reactstrap";
 
 class App extends Component {
   constructor() {
@@ -22,7 +27,8 @@ class App extends Component {
     this.state = {
       userid: "",
       loginstatus: "no",
-      isstudent: "no",
+      // isstudent: "no",
+      domain: "",
       addclick: false
     };
     this.style1 = {
@@ -41,12 +47,12 @@ class App extends Component {
     };
   }
 
-  handleToUpdate = (userid, isstudent, loginstatus) => {
-    console.log(isstudent);
+  handleToUpdate = (userid, domain, loginstatus) => {
+    // console.log(isstudent);
     this.setState({
       userid,
-      isstudent,
-      loginstatus
+      loginstatus,
+      domain
     });
   };
 
@@ -67,45 +73,82 @@ class App extends Component {
       <Router>
         <div className="App">
           <Navbar />
+
           {this.state.loginstatus === "no" && (
             <Login handleToUpdate={this.handleToUpdate} />
           )}
-          {this.state.loginstatus === "yes" && this.state.isstudent === "yes" && (
-            <div className="container">
-              <Button onClick={this.onClick} className="m-4">
-                <AddCircle />
-              </Button>
-              <br />
-              {this.state.addclick && (
+          <div className="container">
+            {this.state.loginstatus === "yes" &&
+              this.state.domain === "student" && (
                 <React.Fragment>
-                  <FeedModal id={this.state.userid} />
-                  <PollModal id={this.state.userid} />
+                  <div className="d-flex flex-row text-primary">
+                    <HomeOutlined />
+                    <p>{this.state.domain}</p>
+                  </div>
+                  <Button onClick={this.onClick} className="m-4">
+                    <AddCircle />
+                  </Button>
+
+                  {this.state.addclick && (
+                    <React.Fragment>
+                      <FeedModal id={this.state.userid} />
+                      <PollModal id={this.state.userid} />
+                    </React.Fragment>
+                  )}
+                  <Grid container>
+                    <Grid item sm>
+                      <h1>My Requests</h1>
+                      <Subject fontSize="large" />
+
+                      <Paper style={this.style2}>
+                        <Landing studentid={this.state.userid} />
+                      </Paper>
+                    </Grid>
+
+                    <Grid item sm>
+                      <h1>Recent polls</h1>
+                      <TrendingUp fontSize="large" />
+
+                      <Paper style={this.style2}>
+                        <PollLanding
+                          studentid={this.state.userid}
+                          domain={this.state.domain}
+                        />
+                      </Paper>
+                    </Grid>
+                  </Grid>
                 </React.Fragment>
               )}
 
-              <React.Fragment>
-                <Grid container>
-                  <Grid item sm>
-                    <h1>My feeds</h1>
-                    <Subject fontSize="large" />
+            {this.state.loginstatus === "yes" &&
+              this.state.domain !== "student" && (
+                <React.Fragment>
+                  <div className="d-flex flex-row">
+                    <HomeOutlined />
+                    <p>{this.state.domain}</p>
+                  </div>
+                  <Grid container>
+                    <Grid item sm>
+                      <h1>Recent Requests</h1>
+                      <Subject fontSize="large" />
 
-                    <Paper style={this.style2}>
-                      <Landing studentid={this.state.userid} />
-                    </Paper>
+                      <Paper style={this.style2}>
+                        <Landing domain={this.state.domain} />
+                      </Paper>
+                    </Grid>
+
+                    <Grid item sm>
+                      <h1>Recent polls</h1>
+                      <TrendingUp fontSize="large" />
+
+                      <Paper style={this.style2}>
+                        <PollLanding domain={this.state.domain} />
+                      </Paper>
+                    </Grid>
                   </Grid>
-
-                  <Grid item sm>
-                    <h1>Recent polls</h1>
-                    <TrendingUp fontSize="large" />
-
-                    <Paper style={this.style2}>
-                      <PollLanding studentid={this.state.userid} />
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </React.Fragment>
-            </div>
-          )}
+                </React.Fragment>
+              )}
+          </div>
         </div>
       </Router>
     );

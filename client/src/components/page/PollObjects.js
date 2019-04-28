@@ -1,7 +1,13 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Badge } from "@material-ui/core";
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from "reactstrap";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Button
+} from "reactstrap";
 
 import { AddCircle, DeleteSweep } from "@material-ui/icons";
 
@@ -12,7 +18,9 @@ export default class PollObjects extends Component {
     this.state = {
       options: [],
       intervalIsSet: false,
-      optionadd: ""
+      optionadd: "",
+      erdis: "false",
+      responsemsg:""
     };
   }
 
@@ -21,7 +29,7 @@ export default class PollObjects extends Component {
   };
   componentDidMount = () => {
     this.getOptionsFromDb();
-    console.log("calling");
+    // console.log("calling");
     if (!this.state.intervalIsSet) {
       let interval = setInterval(this.getDataFromDb, 1000);
       this.setState({ intervalIsSet: interval });
@@ -34,6 +42,14 @@ export default class PollObjects extends Component {
     });
   };
 
+  onOpenEdit = e => {
+    this.setState({ erdis: "true" });
+  };
+
+  onClickChange = id => {
+    axios.put(`/api/poll/responsedit/${id}/${this.state.responsemsg}`);
+    this.setState({ erdis: "false" });
+  };
   onAddclick = id => {
     // var newStateArray = this.state.options.slice();
     // newStateArray.push({
@@ -114,6 +130,29 @@ export default class PollObjects extends Component {
                 <AddCircle />
               </Badge>
             </div>
+          </div>
+          <div className="card-body">
+            <h5>Response:</h5>
+            <p className="card-text">{this.props.element.response}</p>
+            {this.props.domain !== "student" && (
+              <React.Fragment>
+                <Button onClick={this.onOpenEdit}>edit response</Button>
+                {this.state.erdis === "true" && (
+                  <div className="d-flex flex-row">
+                    <Input
+                      placeholder={this.props.element.response}
+                      name="responsemsg"
+                      onChange={this.onChange}
+                    />
+                    <Button
+                      onClick={this.onClickChange.bind(this, this.props._id)}
+                    >
+                      edit
+                    </Button>
+                  </div>
+                )}
+              </React.Fragment>
+            )}
           </div>
           <div className="card-footer text-muted text-right">
             {this.props.element.domain}

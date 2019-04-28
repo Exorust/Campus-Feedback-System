@@ -20,11 +20,12 @@ export default class login extends Component {
           // console.log("handleupdate will be called");
           this.props.handleToUpdate(
             this.state.loginid,
-            res.data.isstudent,
+            res.data.domain,
+            // res.data.isstudent,
             "yes"
           );
         }
-      });
+      }).catch(err=> alert("login failed"));
   };
   render() {
     return (

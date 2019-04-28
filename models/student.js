@@ -11,7 +11,9 @@ const StudentSchema = new Schema({
     type: String,
     required: [true, "ID field is required"]
   },
-
+  domain: {
+    type: String
+  },
   isstudent: {
     type: String,
     required: [true, "isStudent or not"]

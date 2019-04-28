@@ -21,6 +21,16 @@ router.post("/", (req, res) => {
   feedback.save().then(feed => res.send(feed));
 });
 
+router.put("/responsedit/:id", (req, res) => {
+  FeedbackModel.findByIdAndUpdate(
+    { _id: req.params.id },
+    { response: "done" },
+    function(response) {}
+  )
+    
+    .catch(err => res.send("failed"));
+});
+
 router.delete("/:id", (req, res) => {
   FeedbackModel.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))

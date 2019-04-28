@@ -3,7 +3,7 @@ import axios from "axios";
 import { Container, ListGroup, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Badge } from "@material-ui/core";
-import { DeleteSweep } from "@material-ui/icons";
+import { DeleteSweep, CheckBox } from "@material-ui/icons";
 
 class Landing extends Component {
   signal = axios.CancelToken.source();
@@ -20,6 +20,9 @@ class Landing extends Component {
     axios.delete(`/api/feedback/${id}`);
   };
 
+  onMarkDone = id => {
+    axios.put(`/api/feedback/responsedit/${id}`);
+  };
   componentDidMount() {
     // this._isMounted = true;
     this.getDataFromDb();
@@ -63,23 +66,44 @@ class Landing extends Component {
     return (
       <Container>
         {this.state.feedback.map(
-          ({ _id, studentid, feedback, domain }) =>
-            studentid === this.props.studentid && (
+          ({ _id, studentid, feedback, response, domain }) =>
+            (studentid === this.props.studentid ||
+              (domain === this.props.domain && response !== "done")) && (
               <div className="card mb-4" key={_id}>
-                <Badge
-                  className="remove-btn "
-                  size="sm"
-                  onClick={this.onDeleteClick.bind(this, _id)}
-                >
-                  <DeleteSweep />
-                </Badge>
+                {domain !== this.props.domain && (
+                  <Badge
+                    className="remove-btn "
+                    size="sm"
+                    onClick={this.onDeleteClick.bind(this, _id)}
+                  >
+                    <DeleteSweep />
+                  </Badge>
+                )}
+
+                {domain === this.props.domain && (
+                  <div className="d-flex flex-row">
+                    <Badge
+                      className="remove-btn "
+                      size="sm"
+                      onClick={this.onMarkDone.bind(this, _id)}
+                    >
+                      <CheckBox />
+                    </Badge>
+                    <p className="text-success">mark as done</p>
+                  </div>
+                )}
+
                 <div className="card-header d-flex bg-dark text-white text-justify">
                   {studentid}
                 </div>
                 <div className="card-body">
                   <h5>Feed:</h5>
                   <p className="card-text">{feedback}</p>
-                  <Button>view response</Button>
+                  {response === "done" ? (
+                    <p className="text-success">approved</p>
+                  ) : (
+                    <p className="text-danger">pending</p>
+                  )}
                 </div>
                 <div className="card-footer text-muted text-right">
                   {domain}

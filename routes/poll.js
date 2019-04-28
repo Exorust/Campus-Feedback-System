@@ -32,6 +32,14 @@ router.put("/options/:id/:option", (req, res) => {
   ).then(poll => console.log(poll));
 });
 
+router.put("/responsedit/:id/:responsemsg", (req, res) => {
+  PollModel.findByIdAndUpdate(
+    { _id: req.params.id },
+    { response: req.params.responsemsg },
+    function(response) {}
+  )
+});
+
 router.delete("/:id", (req, res) => {
   PollModel.findById(req.params.id)
     .then(item => item.remove().then(() => res.json({ success: true })))

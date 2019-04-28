@@ -12,7 +12,8 @@ app.use(cors());
 // connect to mongodb
 mongoose
   // .connect("mongodb://localhost/campusfeedback")
-  .connect("mongodb://gopeshkh1:gopesh123@ds149885.mlab.com:49885/alternate")
+  // .connect("mongodb://gopeshkh1:gopesh123@ds149885.mlab.com:49885/alternate")
+  .connect("mongodb://gopesh:gopesh123@ds145486.mlab.com:45486/campus-feed2")
   .then(console.log("mogodb connected"));
 mongoose.Promise = global.Promise;
 
@@ -33,6 +34,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // listen for requests
-app.listen(process.env.port || 4000, function() {
-  console.log("now listening for requests");
+app.listen(process.env.PORT || 4000, function() {
+  console.log("now listening for requests on port 4000");
 });

@@ -16,7 +16,10 @@ const PollSchema = new Schema({
   date: {
     type: Date
   },
-  options: [{ option: String, count: Number }]
+  options: [{ option: String, count: Number }],
+  response: {
+    type: String
+  }
   // add in geo location
 });
 

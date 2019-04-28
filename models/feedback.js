@@ -15,6 +15,9 @@ const FeedbackSchema = new Schema({
   },
   date: {
     type: Date
+  },
+  response: {
+    type: String
   }
   // add in geo location
 });

@@ -12,31 +12,6 @@ class Navbar extends Component {
             <Link className="navbar-brand" to="/FeedbackForm">
               <h1>Feedbuzz</h1>
             </Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#mobile-nav"
-            >
-              <span className="navbar-toggler-icon" />
-            </button>
-            {this.props.loginstatus === "no" && (
-              <div className="collapse navbar-collapse" id="mobile-nav">
-                <ul className="navbar-nav ml-auto">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      <Login />
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/signup">
-                      <Signup />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            )}
-            {}
           </div>
         </nav>
       </div>

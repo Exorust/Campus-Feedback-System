@@ -50,51 +50,51 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Navbar />
+          <Navbar loginstatus={this.state.loginstatus} />
           {this.state.loginstatus === "no" && (
             <Login handleToUpdate={this.handleToUpdate} />
           )}
           {this.state.loginstatus === "yes" && (
             <div className="container">
               {this.state.isstudent === "yes" && (
-                <Grid container>
-                  <Grid item sm>
-                    <Typography>
-                      <FeedModal id={this.state.userid} />
-                      <PollModal id={this.state.userid} />
-                    </Typography>
+                <React.Fragment>
+                  <Grid container>
+                    <Grid item sm>
+                      <Typography>
+                        <FeedModal id={this.state.userid} />
+                        <PollModal id={this.state.userid} />
+                      </Typography>
+                    </Grid>
+                    <Grid item sm>
+                      <Typography>
+                        <PieChart />
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item sm>
-                    <Typography>
-                      <PieChart />
-                    </Typography>
+
+                  <Grid container>
+                    <Grid item sm>
+                      <Typography align="center">
+                        <h1>my feeds</h1>
+                        <Subject fontSize="large" />
+                      </Typography>
+                      <Paper style={this.style2}>
+                        <Landing studentid={this.state.userid} />
+                      </Paper>
+                    </Grid>
+
+                    <Grid item sm>
+                      <Typography align="center">
+                        <h1>recent polls</h1>
+                        <TrendingUp fontSize="large" />
+                      </Typography>
+                      <Paper style={this.style2}>
+                        <PollLanding studentid={this.state.userid} />
+                      </Paper>
+                    </Grid>
                   </Grid>
-                </Grid>
+                </React.Fragment>
               )}
-
-              <React.Fragment>
-                <Grid container>
-                  <Grid item sm>
-                    <Typography align="center">
-                      <h1>my feeds</h1>
-                      <Subject fontSize="large" />
-                    </Typography>
-                    <Paper style={this.style2}>
-                      <Landing studentid={this.state.userid} />
-                    </Paper>
-                  </Grid>
-
-                  <Grid item sm>
-                    <Typography align="center">
-                      <h1>recent polls</h1>
-                      <TrendingUp fontSize="large" />
-                    </Typography>
-                    <Paper style={this.style2}>
-                      <PollLanding studentid={this.state.userid} />
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </React.Fragment>
             </div>
           )}
         </div>
